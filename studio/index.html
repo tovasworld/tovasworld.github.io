@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b1022" />
+    <!-- private tool on a public URL: keep it out of search engines -->
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="Lumi Müzik Stüdyosu — slow, drumless piano / Rhodes / strings composer" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+    <title>Lumi Müzik Stüdyosu</title>
+    <script type="module" crossorigin src="./assets/index-CGyEkCQv.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-q1LDnOZ1.css">
+  <link rel="manifest" href="./manifest.webmanifest"></head>
+  <body>
+    <div id="app">
+      <nav id="phone-bar" class="phone-bar" aria-label="Lumi">
+        <span class="lamp" aria-hidden="true"></span>
+        <button id="pb-play" class="primary big" data-proxy="btn-play" data-i18n-title="play" title="Çal">▶</button>
+        <button class="big" data-proxy="btn-stop" data-i18n-title="stop" title="Durdur">■</button>
+        <button id="pb-loop" class="toggle" data-proxy="btn-loop" data-i18n-title="loop" title="Döngü">⟳</button>
+        <button id="pb-undo" data-proxy="btn-undo" data-i18n-title="undo" title="Geri al">↶</button>
+        <button id="pb-redo" data-proxy="btn-redo" data-i18n-title="redo" title="Yinele">↷</button>
+        <button data-proxy="btn-del" data-i18n-title="deleteSel" title="Sil">🗑</button>
+        <div class="menu-wrap">
+          <button id="pb-melody" data-i18n-title="melodyHelper" title="Melodi yardımcısı">♪</button>
+          <div id="menu-melody-phone" class="menu" hidden></div>
+        </div>
+        <button id="btn-menu" data-i18n-title="menu" title="Menü" aria-expanded="false" aria-controls="drawer">☰</button>
+      </nav>
+      <div id="drawer">
+      <div class="drawer-head">
+        <strong data-i18n="appTitle">Lumi Müzik Stüdyosu</strong>
+        <button id="drawer-close" class="primary" data-i18n="close">Kapat</button>
+      </div>
+      <header class="top" role="toolbar">
+        <div class="brand"><span class="lamp" aria-hidden="true"></span><strong data-i18n="appTitle">Lumi Müzik Stüdyosu</strong></div>
+        <label class="field"><span data-i18n="template">Şablon</span><select id="tpl"></select></label>
+        <button id="btn-new" data-i18n="newProject">Yeni</button>
+        <label class="field"><span data-i18n="key">Ton</span><select id="key"></select></label>
+        <label class="field"><span data-i18n="scale">Gam</span><select id="scale"></select></label>
+        <label class="field"><span data-i18n="bpm">BPM</span><input id="bpm" type="number" min="40" max="140" step="1" inputmode="numeric" /></label>
+        <label class="field wide"><span><span data-i18n="humanize">İnsancıl</span> <output id="hum-out">0</output>%</span><input id="humanize" type="range" min="0" max="100" step="1" /></label>
+        <span class="spacer-flex"></span>
+        <button id="btn-undo" data-i18n-title="undo" title="Geri al">↶</button>
+        <button id="btn-redo" data-i18n-title="redo" title="Yinele">↷</button>
+        <button id="btn-save" data-i18n="save">Kaydet</button>
+        <button id="btn-open" data-i18n="open">Aç</button>
+        <div class="menu-wrap">
+          <button id="btn-export" class="primary" data-i18n="export" aria-haspopup="true">Dışa aktar</button>
+          <div id="menu-export" class="menu" hidden>
+            <button data-export="midi" data-i18n="exportMidi">MIDI (.mid)</button>
+            <label class="check menu-check"><input id="midi-human" type="checkbox" /> <span data-i18n="midiHuman">MIDI'ye insancıl çalımı uygula</span></label>
+            <button data-export="wav" data-i18n="exportWav">WAV (24-bit, 48 kHz)</button>
+            <button data-export="stems" data-i18n="exportStems">WAV + parçalar</button>
+          </div>
+        </div>
+        <button id="btn-lang" aria-label="Language">EN</button>
+        <button id="btn-about" data-i18n="about">Hakkında</button>
+      </header>
+
+      <section class="transport" aria-label="Transport">
+        <button id="btn-play" class="primary big" data-i18n-title="play" title="Çal">▶</button>
+        <button id="btn-stop" class="big" data-i18n-title="stop" title="Durdur">■</button>
+        <button id="btn-loop" class="toggle" data-i18n="loop">Döngü</button>
+        <label class="field"><span data-i18n="snap">Izgara</span><select id="snap"></select></label>
+        <div class="field"><span data-i18n="zoom">Yakınlık</span>
+          <span class="pair"><button id="zoom-out" aria-label="−">−</button><button id="zoom-in" aria-label="+">+</button></span>
+        </div>
+        <div class="field"><span data-i18n="bars">Ölçü</span>
+          <span class="pair"><button id="bars-minus" aria-label="−">−</button><output id="bars-out">8</output><button id="bars-plus" aria-label="+">+</button></span>
+        </div>
+        <div class="field"><span data-i18n="melodyTrack">Nota çalgısı</span>
+          <span class="seg" id="track-seg" role="radiogroup"></span>
+        </div>
+        <div class="menu-wrap">
+          <button id="btn-melody" data-i18n="melodyHelper">Melodi yardımcısı</button>
+          <div id="menu-melody" class="menu" hidden></div>
+        </div>
+        <button id="btn-del" data-i18n-title="deleteSel" title="Seçileni sil">🗑</button>
+        <button id="btn-dup" data-i18n="duplicateRange">Aralığı çoğalt</button>
+        <span class="hint" data-i18n="moveHint">Sürükle: taşı · sağ kenar: uzat</span>
+      </section>
+
+      <section class="mixer" aria-label="Mixer">
+        <div id="mix-tracks" class="mix-tracks"></div>
+        <div class="mix-fx">
+          <label class="field"><span data-i18n="reverb">Reverb</span><input id="fx-reverb" type="range" min="0" max="100" /></label>
+          <label class="field"><span data-i18n="tape">Bant doygunluğu</span><input id="fx-tape" type="range" min="0" max="100" /></label>
+          <label class="field"><span data-i18n="flutter">Bant dalgalanması</span><input id="fx-flutter" type="range" min="0" max="100" /></label>
+        </div>
+        <div class="status"><span id="status-sound"></span> · <span id="status-save"></span></div>
+      </section>
+      </div>
+
+      <section class="chords" aria-label="Chords">
+        <div class="chord-head">
+          <strong data-i18n="chordStrip">Akorlar</strong>
+          <label class="check"><input id="insert" type="checkbox" checked /> <span data-i18n="insertChords">Çizgiye ekle</span></label>
+          <label class="field inline"><span data-i18n="chordLength">Akor uzunluğu</span><select id="chord-len"></select></label>
+        </div>
+        <div id="pads" class="pads"></div>
+        <details class="pad-edit">
+          <summary data-i18n="editPads">Akor padlerini düzenle</summary>
+          <div id="pad-edit-body" class="pad-edit-body"></div>
+        </details>
+      </section>
+
+      <section class="roll" aria-label="Piano roll">
+        <div class="roll-scroll-y">
+          <div class="roll-inner">
+            <canvas id="gutter" aria-hidden="true"></canvas>
+            <div id="scroller" class="scroller" tabindex="0">
+              <div id="roll-spacer" class="roll-spacer"></div>
+              <canvas id="roll-canvas" aria-label="Piano roll"></canvas>
+            </div>
+          </div>
+        </div>
+        <div id="empty-hint" class="empty-hint" hidden data-i18n="emptyHint">Boş bir şarkı.</div>
+      </section>
+
+    </div>
+
+    <dialog id="about">
+      <h2 data-i18n="appTitle">Lumi Müzik Stüdyosu</h2>
+      <p data-i18n="aboutText"></p>
+      <p data-i18n="aboutInstall"></p>
+      <h3 data-i18n="hints">Kısayollar</h3>
+      <p id="about-hints" data-i18n="hintList"></p>
+      <h3 data-i18n="aboutLicenses">Lisanslar</h3>
+      <ul class="credits">
+        <li>Salamander Grand Piano — Alexander Holm, <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC-BY 3.0</a> (<a href="https://archive.org/details/SalamanderGrandPianoV3" target="_blank" rel="noopener">source</a>, hosted by Tone.js)</li>
+        <li>jRhodes3c (Rhodes) — Jeff Learman, sampled 1977 Rhodes Mark I; samples in this app under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>, music made with them may be used commercially (<a href="https://github.com/sfzinstruments/jlearman.jRhodes3c" target="_blank" rel="noopener">source</a>)</li>
+        <li>VS Chamber Orchestra 2: Community Edition (strings) — Versilian Studios / Sam Gossner, Simon Dalzell, <a href="https://github.com/sgossner/VSCO-2-CE" target="_blank" rel="noopener">CC0</a></li>
+        <li>smplr, Tone.js, Tonal, @tonejs/midi, wavefile, Dexie, Workbox — MIT</li>
+      </ul>
+      <form method="dialog"><button class="primary" data-i18n="close">Kapat</button></form>
+    </dialog>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
