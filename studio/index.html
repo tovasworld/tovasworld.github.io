@@ -14,19 +14,18 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <title>Lumi Müzik Stüdyosu</title>
-    <script type="module" crossorigin src="./assets/index-THUIc5Wb.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-q1LDnOZ1.css">
+    <script type="module" crossorigin src="./assets/index-BogZ3dQ-.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-D2moSJ3R.css">
   <link rel="manifest" href="./manifest.webmanifest"></head>
   <body>
     <div id="app">
       <nav id="phone-bar" class="phone-bar" aria-label="Lumi">
-        <span class="lamp" aria-hidden="true"></span>
+        <button id="pb-cloud" class="cloud-chip" data-proxy="btn-cloud" title="Projelerim">☁</button>
         <button id="pb-play" class="primary big" data-proxy="btn-play" data-i18n-title="play" title="Çal">▶</button>
         <button class="big" data-proxy="btn-stop" data-i18n-title="stop" title="Durdur">■</button>
         <button id="pb-loop" class="toggle" data-proxy="btn-loop" data-i18n-title="loop" title="Döngü">⟳</button>
         <button id="pb-undo" data-proxy="btn-undo" data-i18n-title="undo" title="Geri al">↶</button>
         <button id="pb-redo" data-proxy="btn-redo" data-i18n-title="redo" title="Yinele">↷</button>
-        <button data-proxy="btn-del" data-i18n-title="deleteSel" title="Sil">🗑</button>
         <div class="menu-wrap">
           <button id="pb-melody" data-i18n-title="melodyHelper" title="Melodi yardımcısı">♪</button>
           <div id="menu-melody-phone" class="menu" hidden></div>
@@ -49,6 +48,7 @@
         <span class="spacer-flex"></span>
         <button id="btn-undo" data-i18n-title="undo" title="Geri al">↶</button>
         <button id="btn-redo" data-i18n-title="redo" title="Yinele">↷</button>
+        <button id="btn-cloud" class="cloud-chip" data-i18n-title="projects" title="Projelerim"><span id="cloud-state">☁</span> <span data-i18n="projects">Projelerim</span></button>
         <button id="btn-save" data-i18n="save">Kaydet</button>
         <button id="btn-open" data-i18n="open">Aç</button>
         <div class="menu-wrap">
@@ -57,6 +57,7 @@
             <button data-export="midi" data-i18n="exportMidi">MIDI (.mid)</button>
             <label class="check menu-check"><input id="midi-human" type="checkbox" /> <span data-i18n="midiHuman">MIDI'ye insancıl çalımı uygula</span></label>
             <button data-export="wav" data-i18n="exportWav">WAV (24-bit, 48 kHz)</button>
+            <label class="check menu-check"><input id="wav-norm" type="checkbox" checked /> <span data-i18n="wavNorm">WAV'ı YouTube seviyesine getir (−14 LUFS)</span></label>
             <button data-export="stems" data-i18n="exportStems">WAV + parçalar</button>
           </div>
         </div>
@@ -87,6 +88,7 @@
         <span class="hint" data-i18n="moveHint">Sürükle: taşı · sağ kenar: uzat</span>
       </section>
 
+      <section id="drawer-chords" class="drawer-section" aria-label="Chords" hidden></section>
       <section class="mixer" aria-label="Mixer">
         <div id="mix-tracks" class="mix-tracks"></div>
         <div class="mix-fx">
@@ -139,6 +141,30 @@
         <li>VS Chamber Orchestra 2: Community Edition (strings) — Versilian Studios / Sam Gossner, Simon Dalzell, <a href="https://github.com/sgossner/VSCO-2-CE" target="_blank" rel="noopener">CC0</a></li>
         <li>smplr, Tone.js, Tonal, @tonejs/midi, wavefile, Dexie, Workbox — MIT</li>
       </ul>
+      <form method="dialog"><button class="primary" data-i18n="close">Kapat</button></form>
+    </dialog>
+    <nav id="sel-bar" class="sel-bar" aria-label="Selection" hidden>
+      <button data-act="clear" data-i18n-title="selClear" title="Seçimi bırak">✕</button>
+      <button data-act="delete" data-i18n-title="deleteSel" title="Sil">🗑</button>
+      <button data-act="dup" data-i18n-title="selDup" title="Çoğalt">⧉</button>
+      <button data-act="copy" data-i18n-title="selCopy" title="Kopyala">⎘</button>
+      <button data-act="paste" data-i18n-title="selPaste" title="Yapıştır">📋</button>
+      <button data-act="left" data-i18n-title="selLeft" title="Sola">◀</button>
+      <button data-act="right" data-i18n-title="selRight" title="Sağa">▶</button>
+      <button data-act="up" data-i18n-title="selUp" title="Yukarı">▲</button>
+      <button data-act="down" data-i18n-title="selDown" title="Aşağı">▼</button>
+    </nav>
+    <dialog id="projects" aria-labelledby="projects-title">
+      <h2 id="projects-title" data-i18n="projects">Projelerim</h2>
+      <div class="cloud-account">
+        <span id="cloud-who"></span>
+        <button id="cloud-signin" class="primary" data-i18n="signIn">Google ile giriş yap</button>
+        <button id="cloud-signout" data-i18n="signOut">Çıkış yap</button>
+      </div>
+      <p id="cloud-note" class="note"></p>
+      <label class="field"><span data-i18n="projectName">Bu projenin adı</span><input id="proj-name" type="text" maxlength="80" autocomplete="off" /></label>
+      <div class="proj-actions"><button id="proj-new" data-i18n="newProject">Yeni</button></div>
+      <ul id="proj-list" class="proj-list"></ul>
       <form method="dialog"><button class="primary" data-i18n="close">Kapat</button></form>
     </dialog>
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
