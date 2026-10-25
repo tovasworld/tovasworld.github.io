@@ -14,8 +14,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <title>Lumi Müzik Stüdyosu</title>
-    <script type="module" crossorigin src="./assets/index-DbMSaXpN.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-D2moSJ3R.css">
+    <script type="module" crossorigin src="./assets/index-D3beZJl3.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-zIygdpHw.css">
   <link rel="manifest" href="./manifest.webmanifest"></head>
   <body>
     <div id="app">
@@ -96,6 +96,14 @@
           <label class="field"><span data-i18n="tape">Bant doygunluğu</span><input id="fx-tape" type="range" min="0" max="100" /></label>
           <label class="field"><span data-i18n="flutter">Bant dalgalanması</span><input id="fx-flutter" type="range" min="0" max="100" /></label>
         </div>
+        <div class="ref-row" id="ref-row">
+          <button id="ref-add" data-i18n="refAdd">Referans parça</button>
+          <span id="ref-name" class="ref-name" hidden></span>
+          <button id="ref-play" hidden aria-label="Play">▶</button>
+          <label class="field" id="ref-vol-wrap" hidden><span data-i18n="refVolume">Referans sesi</span><input id="ref-vol" type="range" min="0" max="100" value="80" /></label>
+          <label class="check" id="ref-sync-wrap" hidden><input id="ref-sync" type="checkbox" checked /> <span data-i18n="refSync">Şarkıyla birlikte çal</span></label>
+          <button id="ref-clear" hidden data-i18n-title="refClear" title="Kaldır" aria-label="Remove">✕</button>
+        </div>
         <div class="status"><span id="status-sound"></span> · <span id="status-save"></span></div>
       </section>
       </div>
@@ -165,6 +173,16 @@
       <label class="field"><span data-i18n="projectName">Bu projenin adı</span><input id="proj-name" type="text" maxlength="80" autocomplete="off" /></label>
       <div class="proj-actions"><button id="proj-new" data-i18n="newProject">Yeni</button></div>
       <ul id="proj-list" class="proj-list"></ul>
+      <details id="claude-box" class="claude-box">
+        <summary data-i18n="claudeTitle">Claude bağlantısı</summary>
+        <p class="note" data-i18n="claudeNote"></p>
+        <div class="claude-row">
+          <input id="claude-code" type="password" readonly autocomplete="off" spellcheck="false" aria-label="Claude" />
+          <button id="claude-show" data-i18n="claudeShow">Kodu göster</button>
+          <button id="claude-copy" data-i18n="claudeCopy">Kopyala</button>
+          <button id="claude-rotate" data-i18n="claudeRotate">Yeni kod</button>
+        </div>
+      </details>
       <form method="dialog"><button class="primary" data-i18n="close">Kapat</button></form>
     </dialog>
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
